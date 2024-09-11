@@ -4,6 +4,7 @@ from typing import Any
 from aiogram.types import Update
 from db_init import initialise
 import config
+from bot import router
 
 app = FastAPI()
 
@@ -16,4 +17,5 @@ async def webhook(update: dict[str, Any]):
 @app.on_event('startup')
 async def startup():
     await initialise()
+    await dp.include_router(router)
     await bot.set_webhook(config.webhook_url, drop_pending_updates=True)

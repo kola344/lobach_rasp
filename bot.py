@@ -9,18 +9,20 @@ from db_init import users, initialise
 from datetime import datetime, timedelta
 import traceback
 
-@dp.message(F.text == '/start')
+router = Router()
+
+@router.message(F.text == '/start')
 async def start(message: Message):
     await message.answer(replic_hello)
 
-@dp.message(F.text == 'Неделя')
+@router.message(F.text == 'Неделя')
 async def week(message: Message):
     group_id = await users.get_user_group_id(message.from_user.id)
     monday, sunday = date_functions.get_week_dates()
     text = await replic_get_schedule([monday, sunday], group_id)
     await message.answer(text)
 
-@dp.message(F.text.startswith('Неделя'))
+@router.message(F.text.startswith('Неделя'))
 async def custom_week(message: Message):
     try:
         splited_message = message.text.split()
@@ -33,28 +35,28 @@ async def custom_week(message: Message):
         traceback.print_exc()
         await message.answer(replic_error)
 
-@dp.message(F.text == 'Сегодня')
+@router.message(F.text == 'Сегодня')
 async def today(message: Message):
     group_id = await users.get_user_group_id(message.from_user.id)
     date = datetime.now().strftime('%Y.%m.%d')
     text = await replic_get_schedule([date, date], group_id)
     await message.answer(text)
 
-@dp.message(F.text == 'Следующая')
+@router.message(F.text == 'Следующая')
 async def next_week(message: Message):
     group_id = await users.get_user_group_id(message.from_user.id)
     monday, sunday = date_functions.get_next_week_dates()
     text = await replic_get_schedule([monday, sunday], group_id)
     await message.answer(text)
 
-@dp.message(F.text == 'Завтра')
+@router.message(F.text == 'Завтра')
 async def tomorrow(message: Message):
     group_id = await users.get_user_group_id(message.from_user.id)
     date = (datetime.now() + timedelta(days=1)).strftime("%Y.%m.%d")
     text = await replic_get_schedule([date, date], group_id)
     await message.answer(text)
 
-@dp.message()
+@router.message()
 async def set_group(message: Message):
     try:
         group_id, group, desc = await api.get_group_id(message.text)
