@@ -2,6 +2,7 @@ bot_token = "7210602245:AAHeAS-Pi_hqJshXQIVrPuaTS7H3WvoaY2I"
 
 api_url_groups = 'https://portal.unn.ru/ruzapi/search'
 #term, type=group
+#47181
 api_url_get_schelude = f'https://portal.unn.ru/ruzapi/schedule/group/%group_id%'
 #%group_id%, start=(date), finish=(date), lng=1
 days = {

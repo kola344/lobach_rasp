@@ -41,8 +41,8 @@ async def replic_get_schedule(dates: list, group_id):
                 elif 'Лабо' in kindofOfWork:
                     sep_title = '📘'
                     sep = '🔷'
-                add_text += f'{sep_title} {i["beginLesson"]} - {i["endLesson"]} {i["kindOfWork"]}\n{i["discipline"]}\n{sep} {i["lecturer"]}\n{sep} {i["building"]}\n\n'
+                add_text += f'{sep_title} {i["beginLesson"]} - {i["endLesson"]} {i["kindOfWork"]}\n{i["discipline"]}\n{sep} {i["lecturer"]}\n{sep} {i["auditorium"]}[{i["building"]}]\n\n'
                 need_add = True
         if need_add:
-            text += add_text
+            text += f'{add_text}\n'
     return text
