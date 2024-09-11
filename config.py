@@ -14,4 +14,4 @@ days = {
     6: 'Воскресенье'
 }
 
-webhook_url = 'localhost/webhook'
+webhook_url = 'https://kola344-lobach-rasp-1042.twc1.net/webhook'
