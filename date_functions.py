@@ -17,7 +17,7 @@ def generate_date_range(date_list):
 from datetime import datetime, timedelta
 
 def get_week_dates():
-    today = datetime.now()
+    today = datetime.now() + timedelta(hours=3)
     monday = (today - timedelta(days=today.weekday())).strftime("%Y.%m.%d")
     sunday = (today + timedelta(days=6 - today.weekday())).strftime("%Y.%m.%d")
     return monday, sunday
@@ -25,13 +25,13 @@ def get_week_dates():
 from datetime import datetime, timedelta
 
 def get_next_week_dates():
-    today = datetime.now()
+    today = datetime.now() + timedelta(hours=3)
     next_monday = (today + timedelta(days=-today.weekday() + 7)).strftime("%Y.%m.%d")
     next_sunday = (today + timedelta(days=-today.weekday() + 13)).strftime("%Y.%m.%d")
     return next_monday, next_sunday
 
 def get_custom_week_dates(week):
-    today = datetime.now()
+    today = datetime.now() + timedelta(hours=3)
     week_monday = (today + timedelta(days=-today.weekday() + 7+(week*7))).strftime("%Y.%m.%d")
     week_sunday = (today + timedelta(days=-today.weekday() + 13+(week*7))).strftime("%Y.%m.%d")
     return week_monday, week_sunday

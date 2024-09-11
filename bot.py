@@ -38,7 +38,7 @@ async def custom_week(message: Message):
 @router.message(F.text == 'Сегодня')
 async def today(message: Message):
     group_id = await users.get_user_group_id(message.from_user.id)
-    date = datetime.now().strftime('%Y.%m.%d')
+    date = (datetime.now() + timedelta(hours=3)).strftime('%Y.%m.%d')
     text = await replic_get_schedule([date, date], group_id)
     await message.answer(text)
 
@@ -52,7 +52,7 @@ async def next_week(message: Message):
 @router.message(F.text == 'Завтра')
 async def tomorrow(message: Message):
     group_id = await users.get_user_group_id(message.from_user.id)
-    date = (datetime.now() + timedelta(days=1)).strftime("%Y.%m.%d")
+    date = ((datetime.now() + timedelta(hours=3)) + timedelta(days=1)).strftime("%Y.%m.%d")
     text = await replic_get_schedule([date, date], group_id)
     await message.answer(text)
 
