@@ -17,5 +17,5 @@ async def webhook(update: dict[str, Any]):
 @app.on_event('startup')
 async def startup():
     await initialise()
-    await dp.include_router(router)
+    dp.include_router(router)
     await bot.set_webhook(config.webhook_url, drop_pending_updates=True)
