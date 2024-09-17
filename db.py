@@ -33,7 +33,7 @@ class Database:
         async with self.db.execute('''SELECT * FROM users''') as cursor:
             return len(await cursor.fetchall())
 
-    async def get_users(self):
+    async def get_users_data(self):
         async with self.db.execute('''SELECT * FROM users''') as cursor:
             users = await cursor.fetchall()
             result = [{"user_id": i[0], "group": i[1], "group_id": i[2]} for i in users]
