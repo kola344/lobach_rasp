@@ -8,12 +8,29 @@ import api
 from db_init import users, initialise
 from datetime import datetime, timedelta
 import traceback
+import json
 
 router = Router()
 
 @router.message(F.text == '/start')
 async def start(message: Message):
     await message.answer(replic_hello)
+
+@router.message(F.text == '/admin')
+async def admin_panel(message: Message):
+    await message.answer(replic_admin_menu, reply_markup=admin_keyboard)
+
+@router.message(F.text == '/users_count')
+async def users_count(message: Message):
+    count = await users.get_users_count()
+    await message.answer(f'Всего пользователей: {count}')
+
+@router.message(F.text == '/users_data')
+async def users_data(message: Message):
+    data = await users.get_users_data()
+    with open(f'data.json', 'w') as f:
+        json.dump(data, f, indent=4)
+    await message.answer_document(document=FSInputFile('data.json'))
 
 @router.message(F.text == 'Неделя')
 async def week(message: Message):
